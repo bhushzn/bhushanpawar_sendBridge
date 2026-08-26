@@ -92,6 +92,18 @@ export function normalizeStellarError(error: unknown): string {
     if (error.message?.includes("freighter") || error.message?.includes("Freighter")) {
       return "Please install or unlock the Freighter wallet extension.";
     }
+    
+    // Granular Contract Errors based on Soroban Error codes
+    const msg = error.message || "";
+    if (msg.includes("Error(Contract, #1)")) return "Contract is not initialized.";
+    if (msg.includes("Error(Contract, #2)")) return "Contract is already initialized.";
+    if (msg.includes("Error(Contract, #3)")) return "Unauthorized. You do not have permission to perform this action.";
+    if (msg.includes("Error(Contract, #4)")) return "KYC Verification Required. Please complete KYC before sending funds.";
+    if (msg.includes("Error(Contract, #5)")) return "Invalid Amount. Please ensure the transfer amount is valid and positive.";
+    if (msg.includes("Error(Contract, #6)")) return "Transfer not found. The specified transaction does not exist.";
+    if (msg.includes("Error(Contract, #7)")) return "Invalid Status Transition. Cannot change to this state.";
+    if (msg.includes("Error(Contract, #8)")) return "Cannot Cancel. Only pending transfers can be cancelled.";
+
     if (error.message?.includes("soroban") || error.message?.includes("simulate")) {
       return "Contract simulation failed. Please check your transaction parameters.";
     }
