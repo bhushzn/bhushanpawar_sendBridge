@@ -16,6 +16,24 @@
 
 ---
 
+## 🏆 Monthly Builder Submission Details
+
+This section contains the required verifiable information for the Monthly Builder hackathon reviewers.
+
+### 1. Wallet Options Available
+*(Replace the path below with a real screenshot of your wallet connection options)*
+![Wallet Options](/client/public/wallet-options-screenshot.png)
+
+### 2. Deployed Contract Address
+*(Replace with your actual deployed contract ID on Stellar Testnet)*
+**Contract ID**: `C...`
+
+### 3. Verifiable Transaction Hash
+*(Replace with an actual transaction hash from the Stellar Testnet Explorer after executing a contract call)*
+**Transaction Hash**: `...`
+[View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/...)
+
+---
 ## 🌟 Overview
 
 **SendBridge** is a decentralized cross-border remittance platform built on the Stellar network. It bridges traditional fiat payment rails with Stellar's fast settlement speed (3–5 seconds) and sub-cent transaction fees.
