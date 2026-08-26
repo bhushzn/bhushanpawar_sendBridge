@@ -70,11 +70,7 @@ export function OperatorPanel() {
   // Transfer action loading state
   const [processingId, setProcessingId] = React.useState<number | null>(null);
 
-  // Update default rate when pair changes
-  React.useEffect(() => {
-    const raw = getDefaultExchangeRate(srcAsset, dstAsset);
-    setRateInput((raw / 1_000_000).toFixed(6));
-  }, [srcAsset, dstAsset]);
+
 
   const handleUpdateRate = async () => {
     const num = parseFloat(rateInput);
@@ -192,13 +188,19 @@ export function OperatorPanel() {
                 label="Source Currency"
                 options={ASSET_OPTIONS}
                 value={srcAsset}
-                onChange={(e) => setSrcAsset(e.target.value)}
+                onChange={(e) => {
+                  setSrcAsset(e.target.value);
+                  setRateInput((getDefaultExchangeRate(e.target.value, dstAsset) / 1_000_000).toFixed(6));
+                }}
               />
               <Select
                 label="Destination Currency"
                 options={ASSET_OPTIONS}
                 value={dstAsset}
-                onChange={(e) => setDstAsset(e.target.value)}
+                onChange={(e) => {
+                  setDstAsset(e.target.value);
+                  setRateInput((getDefaultExchangeRate(srcAsset, e.target.value) / 1_000_000).toFixed(6));
+                }}
               />
             </div>
 

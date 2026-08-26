@@ -21,6 +21,7 @@ export default function SendPage() {
 
   React.useEffect(() => {
     if (store.transactionStatus === "success" || store.transactionStatus === "error") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStep("status");
     }
   }, [store.transactionStatus]);
