@@ -20,15 +20,19 @@
 
 This section contains the required verifiable information for the Monthly Builder hackathon reviewers.
 
-### 1. Wallet Options Available
+### 1. Live Demo Link
+*(Replace with your live Vercel deployment URL)*
+**Live App**: [https://your-app-name.vercel.app](https://your-app-name.vercel.app)
+
+### 2. Wallet Options Available
 *(Replace the path below with a real screenshot of your wallet connection options)*
 ![Wallet Options](/client/public/wallet-options-screenshot.png)
 
-### 2. Deployed Contract Address
+### 3. Deployed Contract Address
 *(Replace with your actual deployed contract ID on Stellar Testnet)*
 **Contract ID**: `C...`
 
-### 3. Verifiable Transaction Hash
+### 4. Verifiable Transaction Hash
 *(Replace with an actual transaction hash from the Stellar Testnet Explorer after executing a contract call)*
 **Transaction Hash**: `...`
 [View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/...)
