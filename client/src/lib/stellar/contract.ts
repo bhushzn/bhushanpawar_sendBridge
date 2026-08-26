@@ -9,6 +9,7 @@ import {
   xdr,
 } from "@stellar/stellar-sdk";
 import { getServer } from "./network";
+import { getBaseFee } from "./rpc";
 import { NETWORK_PASSPHRASE, CONTRACT_ADDRESS as DEFAULT_CONTRACT_ADDRESS } from "./config";
 import { SimulationError } from "./errors";
 import { getDefaultExchangeRate, ASSETS } from "./assets";
@@ -180,8 +181,9 @@ async function simulateReadOnly(
   const contract = new Contract(contractId);
 
   const account = await server.getAccount(contractId);
+  const baseFee = await getBaseFee();
   const tx = new TransactionBuilder(account, {
-    fee: "100",
+    fee: baseFee,
     networkPassphrase: NETWORK_PASSPHRASE,
   })
     .addOperation(contract.call(method, ...args))
@@ -558,8 +560,9 @@ export async function buildCreateTransfer(
   ];
 
   const contract = new Contract(contractId);
+  const baseFee = await getBaseFee();
   const tx = new TransactionBuilder(account, {
-    fee: "100",
+    fee: baseFee,
     networkPassphrase: NETWORK_PASSPHRASE,
   })
     .addOperation(contract.call("create_transfer", ...args))
@@ -585,8 +588,9 @@ export async function buildSetKycAttestation(
   ];
 
   const contract = new Contract(contractId);
+  const baseFee = await getBaseFee();
   const tx = new TransactionBuilder(account, {
-    fee: "100",
+    fee: baseFee,
     networkPassphrase: NETWORK_PASSPHRASE,
   })
     .addOperation(contract.call("set_kyc_attestation", ...args))
@@ -612,8 +616,9 @@ export async function buildSetExchangeRate(
   ];
 
   const contract = new Contract(contractId);
+  const baseFee = await getBaseFee();
   const tx = new TransactionBuilder(account, {
-    fee: "100",
+    fee: baseFee,
     networkPassphrase: NETWORK_PASSPHRASE,
   })
     .addOperation(contract.call("set_exchange_rate", ...args))
@@ -635,8 +640,9 @@ export async function buildSetFeeBps(
   ];
 
   const contract = new Contract(contractId);
+  const baseFee = await getBaseFee();
   const tx = new TransactionBuilder(account, {
-    fee: "100",
+    fee: baseFee,
     networkPassphrase: NETWORK_PASSPHRASE,
   })
     .addOperation(contract.call("set_fee_bps", ...args))
@@ -670,8 +676,9 @@ export async function buildUpdateTransferStatus(
   ];
 
   const contract = new Contract(contractId);
+  const baseFee = await getBaseFee();
   const tx = new TransactionBuilder(account, {
-    fee: "100",
+    fee: baseFee,
     networkPassphrase: NETWORK_PASSPHRASE,
   })
     .addOperation(contract.call("update_transfer_status", ...args))
@@ -693,8 +700,9 @@ export async function buildCancelTransfer(
   ];
 
   const contract = new Contract(contractId);
+  const baseFee = await getBaseFee();
   const tx = new TransactionBuilder(account, {
-    fee: "100",
+    fee: baseFee,
     networkPassphrase: NETWORK_PASSPHRASE,
   })
     .addOperation(contract.call("cancel_transfer", ...args))

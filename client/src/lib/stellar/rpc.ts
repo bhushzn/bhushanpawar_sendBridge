@@ -13,6 +13,18 @@ import {
   normalizeStellarError,
 } from "./errors";
 
+export async function getBaseFee(): Promise<string> {
+  try {
+    const server = getServer();
+    const feeStats = await server.getFeeStats();
+    // Use the 50th percentile of fees charged as a reasonable dynamic base fee
+    return feeStats.sorobanInclusionFee.p50 ?? "100";
+  } catch (error) {
+    console.warn("Failed to fetch fee stats, falling back to 100", error);
+    return "100";
+  }
+}
+
 export async function simulateContractCall(
   contractId: string,
   method: string,
