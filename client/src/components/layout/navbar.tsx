@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Sheet } from "@/components/ui/sheet";
 import { WalletStatus } from "@/components/wallet/wallet-status";
 import { ConnectWallet } from "@/components/wallet/connect-wallet";
+import { CONTRACT_ADDRESS } from "@/lib/stellar/config";
 import {
   Send,
   Activity,
@@ -36,6 +37,8 @@ function Navbar() {
   const pathname = usePathname();
   const wallet = useWallet();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const isLive = !wallet.isDemo && Boolean(CONTRACT_ADDRESS && CONTRACT_ADDRESS.trim().length >= 50 && CONTRACT_ADDRESS.startsWith("C"));
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0a0f1a]/80 backdrop-blur-xl">
@@ -81,9 +84,15 @@ function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <Badge variant="default" className="text-[10px] uppercase tracking-wider">
-            Testnet
-          </Badge>
+          {isLive ? (
+            <Badge variant="default" className="bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 text-[10px] uppercase tracking-wider border border-emerald-500/20">
+              Stellar Testnet • Live
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="text-amber-400 bg-amber-400/10 border-amber-400/20 hover:bg-amber-400/20 text-[10px] uppercase tracking-wider">
+              Demo / Simulation
+            </Badge>
+          )}
           {wallet.isConnected ? <WalletStatus /> : <ConnectWallet />}
         </div>
 
@@ -128,9 +137,15 @@ function Navbar() {
           )}
         </div>
         <div className="mt-3">
-          <Badge variant="default" className="text-[10px] uppercase tracking-wider">
-            Testnet
-          </Badge>
+          {isLive ? (
+            <Badge variant="default" className="bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 text-[10px] uppercase tracking-wider border border-emerald-500/20">
+              Stellar Testnet • Live
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="text-amber-400 bg-amber-400/10 border-amber-400/20 hover:bg-amber-400/20 text-[10px] uppercase tracking-wider">
+              Demo / Simulation
+            </Badge>
+          )}
         </div>
       </Sheet>
     </header>
