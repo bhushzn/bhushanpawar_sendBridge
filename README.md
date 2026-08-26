@@ -108,6 +108,14 @@ cd client
 
 # Install dependencies
 npm install
+
+# Set up environment variables
+cp .env.example .env.local
+```
+
+*(Optional)* To test with the live Stellar Testnet instead of the local simulation fallback, open `.env.local` and add your deployed Soroban contract address:
+```env
+NEXT_PUBLIC_CONTRACT_ADDRESS=C...
 ```
 
 ### 2. Run the Development Server
