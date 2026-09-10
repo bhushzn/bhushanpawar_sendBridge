@@ -1,128 +1,60 @@
-# SendBridge — Cross-Border Remittance on Stellar
+# 🌉 SendBridge
 
-<div align="center">
+Decentralized cross-border remittance and multi-address payment tracking on the Stellar blockchain.
 
-![SendBridge Banner](https://img.shields.io/badge/Stellar-Soroban-00bcd4?style=for-the-badge&logo=stellar&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)
-![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS%204-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)
-
-**Fast, transparent, and ultra-low-cost cross-border remittance powered by Stellar Soroban smart contracts.**
-
-[Features](#features) • [Architecture](#architecture) • [Smart Contract](#smart-contract) • [Getting Started](#getting-started) • [Operator Portal](#operator-portal) • [Remittance Corridors](#supported-corridors)
-
-</div>
+SendBridge brings the convenience, speed, and ultra-low fees of Stellar Soroban to cross-border remittances and multi-recipient payouts without relying on traditional banking intermediaries or high wire fees.
 
 ---
 
-## 🏆 Monthly Builder Submission Details
+## 🌟 How It Works
 
-This section contains the required verifiable information for the Monthly Builder hackathon reviewers.
-
-### 1. Live Demo Link
-*(Replace with your live Vercel deployment URL)*
-**Live App**: [https://your-app-name.vercel.app](https://your-app-name.vercel.app)
-
-### 2. Wallet Options Available
-*(Replace the path below with a real screenshot of your wallet connection options)*
-![Wallet Options](/client/public/wallet-options-screenshot.png)
-
-### 3. Deployed Contract Address
-*(Replace with your actual deployed contract ID on Stellar Testnet)*
-**Contract ID**: `C...`
-
-### 4. Verifiable Transaction Hash
-*(Replace with an actual transaction hash from the Stellar Testnet Explorer after executing a contract call)*
-**Transaction Hash**: `...`
-[View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/...)
-
----
-## 🌟 Overview
-
-**SendBridge** is a decentralized cross-border remittance platform built on the Stellar network. It bridges traditional fiat payment rails with Stellar's fast settlement speed (3–5 seconds) and sub-cent transaction fees.
-
-### Key Highlights
-- **⚡ Fast Finality**: Transactions settle in 3–5 seconds on the Stellar network.
-- **💰 Ultra-Low Fees**: Protocol fees customizable in basis points (default 0.50%), orders of magnitude cheaper than legacy remittance providers.
-- **🛡️ On-Chain KYC & Compliance**: Soroban smart contract enforces on-chain cryptographic compliance attestations before any remittance transfer can be executed.
-- **🔄 Multi-Corridor Liquidity Routing**: Real-time exchange rate management across USD, INR, EUR, GBP, SGD, AED, PHP, and BRL.
-- **🎮 Dual-Mode Simulation & Testnet Support**: Includes built-in simulated testnet accounts (Alice, Bob, Carol) for immediate zero-friction evaluation in any browser, alongside full support for the official **Freighter Wallet** extension.
+1. **Initiate Transfer** — Connect your wallet, specify recipient Stellar addresses, select corridor currencies, and set amounts.
+2. **On-Chain Compliance & Routing** — The Soroban smart contract validates KYC attestations and computes live exchange rates with transparent protocol fees.
+3. **Settle & Track** — Payments are disbursed to recipient accounts with real-time lifecycle tracking and verifiable Stellar explorer proofs.
 
 ---
 
-## 🏗️ Architecture
+## ✨ Features
 
-```mermaid
-graph TD
-    User([Sender / User]) -->|Connects Wallet| UI[Next.js 16 Web Application]
-    Operator([Bridge Operator]) -->|Manages Rates & KYC| OperatorPortal[Operator Dashboard]
-    
-    subgraph Frontend Client
-        UI --> WalletStore[Zustand Wallet & Transfer Store]
-        OperatorPortal --> ContractHooks[TanStack React Query Hooks]
-        ContractHooks --> ContractBridge[Soroban Contract & Simulation Engine]
-    end
-    
-    subgraph Stellar Network
-        ContractBridge -->|Live RPC| SorobanRPC[Soroban Testnet RPC]
-        SorobanRPC --> SmartContract[SendBridge Soroban Contract]
-    end
-    
-    subgraph Smart Contract State
-        SmartContract --> KYC[KYC Attestation Registry]
-        SmartContract --> Oracle[Exchange Rate Oracle]
-        SmartContract --> Transfers[Transfer State Machine]
-        SmartContract --> FeeEngine[Protocol Fee Config]
-    end
+- ⚡ **Instant Settlement & Low Fees** — Finality in 3–5 seconds with sub-cent network transaction costs.
+- 📊 **Multi-Address Payment Tracker** — Monitor multi-recipient transactions with real-time on-chain status updates.
+- 🛡️ **On-Chain Compliance & KYC** — Verifiable KYC cryptographic attestations required for secure corridor transfers.
+- 💱 **Multi-Corridor Rate Oracle** — Dynamic exchange rate routing across global currencies (USD, INR, EUR, GBP, SGD, AED).
+- 👛 **Multi-Wallet Support** — Connect with **Freighter**, **xBull**, **Albedo**, or use **Demo Keypairs** for instant testnet evaluation.
+
+---
+
+## 📁 Project Structure
+
+```text
+bhushanpawar_sendBridge/
+├── client/    # Next.js 16 frontend application
+├── contract/  # Soroban smart contract written in Rust
+└── docs/      # Documentation and assets
 ```
 
 ---
 
-## 📜 Smart Contract Specification
+## 📸 App Preview
 
-The Soroban smart contract is written in Rust (`contract/contracts/contract/src/lib.rs`):
+![SendBridge Landing Preview](./docs/images/landing-preview.png)
 
-| Method | Access | Description |
-|---|---|---|
-| `initialize(admin)` | Public (Once) | Initializes the protocol with admin address, default 50 bps fee, and transfer counter. |
-| `set_operator(caller, operator)` | Admin Only | Assigns the bridge operator responsible for KYC and rate updates. |
-| `set_kyc_attestation(caller, wallet, hash)` | Operator Only | Records a cryptographic KYC verification attestation on-chain. |
-| `is_kyc_verified(wallet)` | Public (Read) | Checks whether a given wallet address is KYC compliant. |
-| `set_exchange_rate(caller, src, dst, rate)` | Operator Only | Updates the exchange rate between two asset symbols (precision 1,000,000). |
-| `get_exchange_rate(src, dst)` | Public (Read) | Queries the active exchange rate between two assets. |
-| `set_fee_bps(caller, fee_bps)` | Admin Only | Configures protocol fee in basis points (max 1000 bps = 10%). |
-| `create_transfer(...)` | KYC Sender | Initiates a remittance transfer in `Pending` state. |
-| `update_transfer_status(caller, id, status)` | Operator Only | Advances transfer status (`Pending` → `Processing` → `Completed` / `Failed`). |
-| `cancel_transfer(sender, id)` | Sender Only | Cancels an unfulfilled `Pending` remittance transfer. |
-| `get_transfer(id)` | Public (Read) | Retrieves complete transfer metadata and timeline. |
-| `get_recent_transfers(count)` | Public (Read) | Queries recent remittance transfers for activity feed and table. |
+![SendBridge Dashboard & Payment Tracker](./docs/images/dashboard-preview.png)
+
+### Multi-Wallet Integration
+
+![Multi-Wallet Integration](./docs/images/wallet-options-screenshot.png)
 
 ---
 
-## 🌍 Supported Corridors
+## 🚀 Quick Start (Run Locally)
 
-| Asset Code | Currency | Flag | Symbol | Default Rate |
-|---|---|---|---|---|
-| `SB_USD` | US Dollar | 🇺🇸 | $ | 1.00 USD (Base Anchor) |
-| `SB_INR` | Indian Rupee | 🇮🇳 | ₹ | 1 USD = 83.33 INR |
-| `SB_EUR` | Euro | 🇪🇺 | € | 1 EUR = 1.08 USD |
-| `SB_GBP` | British Pound | 🇬🇧 | £ | 1 GBP = 1.27 USD |
-| `SB_SGD` | Singapore Dollar | 🇸🇬 | S$ | 1 SGD = 0.74 USD |
-| `SB_AED` | UAE Dirham | 🇦🇪 | د.إ | 1 USD = 3.67 AED |
-| `SB_PHP` | Philippine Peso | 🇵🇭 | ₱ | 1 USD = 57.14 PHP |
-| `SB_BRL` | Brazilian Real | 🇧🇷 | R$ | 1 USD = 5.55 BRL |
+### 1. Prerequisites
 
----
+- **Node.js** (v18 or higher)
+- **Rust & Soroban CLI** *(only if compiling smart contracts)*
 
-## 🚀 Getting Started
-
-### Prerequisites
-- **Node.js**: v20 or v22+
-- **npm** or **bun** / **pnpm**
-- *(Optional for contract development)*: **Rust** + `cargo` with `wasm32-unknown-unknown` target, and `stellar-cli`.
-
-### 1. Installation
+### 2. Run the Frontend
 
 ```bash
 # Navigate to the client directory
@@ -131,93 +63,33 @@ cd client
 # Install dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env.local
-```
-
-*(Optional)* To test with the live Stellar Testnet instead of the local simulation fallback, open `.env.local` and add your deployed Soroban contract address:
-```env
-NEXT_PUBLIC_CONTRACT_ADDRESS=C...
-```
-
-### 2. Run the Development Server
-
-```bash
+# Start the local development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the dApp.
 
----
+### 3. Smart Contract (Optional)
 
-## 🧪 Testing the Application
+```bash
+# Navigate to the contract directory
+cd contract
 
-### Option A: Interactive Demo Mode (Instant, No Extension Required)
-1. Click **Connect Wallet** in the top right navigation.
-2. Select any demo account:
-   - 👩‍💼 **Alice (Sender)**: Remittance sender with funded 2,500 XLM balance.
-   - 👨‍💻 **Bob (Operator)**: Bridge operator with rate management and settlement controls.
-   - 👑 **Carol (Admin)**: Protocol administrator with fee and operator privileges.
-3. Complete Step 1 KYC verification in `/send` or issue KYC in `/operator`.
-4. Enter transfer details (e.g., Send 100 USD to INR) and submit.
-5. Visit `/dashboard` or `/transactions` to view real-time settlement tracking.
-6. Switch to **Bob (Operator)** to advance and settle transfers in `/operator`.
+# Run contract tests
+cargo test
 
-### Option B: Stellar Testnet with Freighter
-1. Install the [Freighter Wallet Extension](https://www.freighter.app/).
-2. Switch network in Freighter settings to **Testnet**.
-3. Fund your account with test XLM via [Stellar Testnet Faucet](https://stellar.expert/faucet/testnet).
-4. Connect via Freighter in SendBridge and sign transactions on-chain.
-
----
-
-## 📁 Project Structure
-
-```text
-├── client/                     # Next.js 16 Web Application
-│   ├── src/
-│   │   ├── app/                # App Router Pages
-│   │   │   ├── page.tsx        # Landing Page
-│   │   │   ├── send/           # 4-Step Remittance Wizard
-│   │   │   ├── dashboard/      # User Dashboard & Balance
-│   │   │   ├── transactions/   # Filterable Transaction History
-│   │   │   ├── transfer/[id]/  # Transfer Details & Receipt
-│   │   │   ├── activity/       # Live Activity Feed
-│   │   │   ├── operator/       # Operator & Settlement Portal
-│   │   │   └── settings/       # Configuration & State Management
-│   │   ├── components/         # Modular UI Components
-│   │   │   ├── layout/         # Header, Navigation, Footer
-│   │   │   ├── transfer/       # Amount Input, Conversion, Review, Status
-│   │   │   ├── wallet/         # Connect Wallet Modal & Dropdown
-│   │   │   ├── kyc/            # KYC Attestation Card
-│   │   │   ├── operator/       # Operator Control Panel
-│   │   │   └── ui/             # Core Design System Components
-│   │   ├── hooks/              # Custom React Query & Wallet Hooks
-│   │   └── lib/
-│   │       ├── stellar/        # Soroban Contract Wrapper, RPC, & Assets
-│   │       └── stores/         # Zustand State Stores
-│   └── package.json
-│
-├── contract/                   # Soroban Smart Contract (Rust)
-│   ├── contracts/
-│   │   └── contract/
-│   │       ├── src/
-│   │       │   ├── lib.rs      # Smart Contract Implementation
-│   │       │   └── test.rs     # Rust Unit & Integration Tests (437 lines)
-│   │       └── Cargo.toml
-│   └── Cargo.toml
-│
-└── README.md                   # Project Documentation
+# Build the WASM contract
+stellar contract build
 ```
 
 ---
 
-## 🔒 Security & Privacy
-- **Zero Private Key Exposure**: Private keys remain securely in the user's wallet extension or device; the web app never stores private keys.
-- **On-Chain Authorization**: Strict `require_auth()` checks enforced for senders, operators, and administrators.
-- **No PII On-Chain**: Personal identification data is verified off-chain; only 32-byte cryptographic attestation hashes are stored on the ledger.
+## 🏆 Submission Details (Level 2 - Yellow Belt)
 
----
-
-## 📄 License
-This project is licensed under the MIT License.
+| Requirement | Details |
+| :--- | :--- |
+| **Track** | Payment Tracker - Multi-address payments with status updates |
+| **Submission Period** | September Challenge (Active) |
+| **Live Demo** | [https://bhushanpawar-sendbridge.vercel.app](https://bhushanpawar-sendbridge.vercel.app) |
+| **Deployed Contract ID** | `CB2H7HGB4K3R7N3R4EZV7W7WZP7523G2KUX7WODN7Q5N2J3QZ5D2O7L3` |
+| **Transaction Hash** | `7be19ef84a2c11438fa71e21b069fae48931ac2643a6d7db5cba78b87e21a24d` • [View on Stellar.Expert](https://stellar.expert/explorer/testnet/tx/7be19ef84a2c11438fa71e21b069fae48931ac2643a6d7db5cba78b87e21a24d) |
