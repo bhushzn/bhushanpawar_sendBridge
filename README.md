@@ -90,6 +90,6 @@ stellar contract build
 | :--- | :--- |
 | **Track** | Payment Tracker - Multi-address payments with status updates |
 | **Submission Period** | September Challenge (Active) |
-| **Live Demo** | [https://bhushanpawar-sendbridge.vercel.app](https://bhushanpawar-sendbridge.vercel.app) |
-| **Deployed Contract ID** | `CB2H7HGB4K3R7N3R4EZV7W7WZP7523G2KUX7WODN7Q5N2J3QZ5D2O7L3` |
-| **Transaction Hash** | `7be19ef84a2c11438fa71e21b069fae48931ac2643a6d7db5cba78b87e21a24d` • [View on Stellar.Expert](https://stellar.expert/explorer/testnet/tx/7be19ef84a2c11438fa71e21b069fae48931ac2643a6d7db5cba78b87e21a24d) |
+| **Live Demo** | [https://bhushanpawar-sendbridge.vercel.app](https://bhushanpawar-sendbridge.vercel.app) *(Optional)* |
+| **Deployed Contract ID** | [`CCOEM7KTOD7FF5NJXXDCBHIAZ7GWMSF3RNUJ6XJXDPCVVU7LXOHHJ3V3`](https://stellar.expert/explorer/testnet/contract/CCOEM7KTOD7FF5NJXXDCBHIAZ7GWMSF3RNUJ6XJXDPCVVU7LXOHHJ3V3) |
+| **Transaction Hash** | [`f12bbe4b7eeb770606ede7d9772db00f862db77451e92f290327980b70a2fcfc`](https://stellar.expert/explorer/testnet/tx/f12bbe4b7eeb770606ede7d9772db00f862db77451e92f290327980b70a2fcfc) • [View on Stellar.Expert](https://stellar.expert/explorer/testnet/tx/f12bbe4b7eeb770606ede7d9772db00f862db77451e92f290327980b70a2fcfc) |
