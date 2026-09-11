@@ -206,7 +206,7 @@ stellar contract build
 | :--- | :--- |
 | **Track** | Advanced Smart Contracts + Production-Ready dApps |
 | **Public GitHub Repository** | [https://github.com/bhushzn/bhushanpawar_sendBridge](https://github.com/bhushzn/bhushanpawar_sendBridge) |
-| **Live Demo** | [https://bhushanpawar-sendbridge.vercel.app](https://bhushanpawar-sendbridge.vercel.app) *(Optional)* |
+| **Live Demo** | [https://bhushanpawar-send-bridge.vercel.app](https://bhushanpawar-send-bridge.vercel.app) |
 | **Demo Video Link** | [https://youtu.be/demo-sendbridge](https://youtu.be/demo-sendbridge) *(1–2 minute walkthrough)* |
 | **Deployed Contract ID** | [`CCOEM7KTOD7FF5NJXXDCBHIAZ7GWMSF3RNUJ6XJXDPCVVU7LXOHHJ3V3`](https://stellar.expert/explorer/testnet/contract/CCOEM7KTOD7FF5NJXXDCBHIAZ7GWMSF3RNUJ6XJXDPCVVU7LXOHHJ3V3) |
 | **Transaction Hash (Contract Interaction)** | [`f12bbe4b7eeb770606ede7d9772db00f862db77451e92f290327980b70a2fcfc`](https://stellar.expert/explorer/testnet/tx/f12bbe4b7eeb770606ede7d9772db00f862db77451e92f290327980b70a2fcfc) • [View on Stellar.Expert](https://stellar.expert/explorer/testnet/tx/f12bbe4b7eeb770606ede7d9772db00f862db77451e92f290327980b70a2fcfc) |
