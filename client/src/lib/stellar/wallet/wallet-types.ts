@@ -1,10 +1,15 @@
+export type WalletType = "freighter" | "xbull" | "albedo" | "rabet" | "hana" | "demo" | "custom";
+
 export interface WalletInfo {
   id: string;
   name: string;
   icon: string;
   isAvailable: boolean;
-  type?: "freighter" | "demo";
-  description?: string;
+  type: WalletType;
+  description: string;
+  category: "all" | "extension" | "web" | "instant";
+  badge?: string;
+  installUrl?: string;
 }
 
 export interface DemoAccount {
@@ -21,8 +26,8 @@ export interface WalletSession {
   address: string;
   network: string;
   walletId: string;
+  walletName?: string;
   isDemo?: boolean;
   role?: string;
   accountName?: string;
 }
-
